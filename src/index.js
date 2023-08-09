@@ -72,6 +72,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 }
 
 //запит на сервер
+let q;
 let page = 1;
 let per_page = 40;
  
