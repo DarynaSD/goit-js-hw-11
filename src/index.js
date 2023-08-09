@@ -1,63 +1,80 @@
-// import { PixabayAPIClass } from './pixabay-api';
-
-// const photosContainerElem = document.querySelector('.gallery');
-// const submitButtonElem = document.querySelector('button');
-// const formElem = document.querySelector('.search-form');
-
-// const pixabayInstnace = new PixabayAPIClass();
-
-
-// //пошук фото після натискання кнопки
-// async function handleSubmit(event) {
-//     event.preventDefault();
-//     const searchQuery = document.querySelector('input').value.trim();
-
-//     if (!searchQuery) { return; }
-    
-//     pixabayInstnace.q = searchQuery;
-
-//     try {
-//     const resultData = await pixabayInstnace.fetchPtotos().then(
-//         resultData => {
-//             console.log(JSON.stringify(resultData))
-//             const photosArray = this.resultData.data.hits;
-//             console.log(photosArray);
-//             renderPhotoCard(photosArray);
-//         }
-//     );
-    
-//         } catch (error) {
-//         console.log(error.message);
-//     }
-// }
-
-
-
-// //слухач на форму
-// formElem.addEventListener('submit', handleSubmit)
-
-///////////
 import axios from "axios";
-
-//не оновлюється сторінка
+import Notiflix from 'notiflix';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const photosContainerElem = document.querySelector('.gallery');
 const submitButtonElem = document.querySelector('button');
 const formElem = document.querySelector('.search-form');
+const loadMoreButtonElem = document.querySelector('.load-more');
+const endTextElem = document.querySelector('.end-text');
 
 //слухач на форму
-formElem.addEventListener('submit', async (event) => {
+formElem.addEventListener('submit', (event) => {
   event.preventDefault();
-  try {
-    const resultData = await fetchPtotos();
-    renderPhotoCard(resultData);
-  } catch (error) {
-    console.log(error.message);
-  }
+
+  page = 1;
+  
+  const searchQuery = document.querySelector('input').value.trim();
+  console.log(searchQuery);
+  if (!searchQuery) { return; }
+  q = searchQuery;
+
+  handleLoad();
 });
 
+// //слухач на кнопку load more 
+loadMoreButtonElem.addEventListener('click', () => {
+  page += 1;
+  handleLoad();
+})
 
-//запит
+//функція завантаження - пошук і load more
+async function handleLoad() {
+  try {
+    photosContainerElem.innerHTML = '';
+    loadMoreButtonElem.classList.add('is-hidden');
+
+    const data = await fetchPtotos();
+    const resultData = data.data.hits;
+    renderPhotoCard(resultData);
+
+
+
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+})
+  
+  lightbox.refresh();
+    
+    console.log(resultData.length);
+    console.log(data.data.totalHits)
+    console.log(page)
+    const totalPages = data.data.totalHits / per_page;
+
+    if (!resultData.length) {
+      Notiflix.Notify.failure(
+            'Sorry, there are no images matching your search query. Please try again.'
+      );
+    } else if (page < totalPages) {
+        loadMoreButtonElem.classList.remove('is-hidden');
+    } else {
+      loadMoreButtonElem.classList.add('is-hidden');
+      endTextElem.classList.remove('is-hidden');
+      console.log(endTextElem)
+    }
+  } catch (error) {
+    console.log(error.message);
+    Notiflix.Notify.failure(
+            `${error.message}! Please reload page and try again.`
+          );
+  }
+}
+
+//запит на сервер
+let page = 1;
+let per_page = 40;
+ 
 async function fetchPtotos() {
   const API_KEY = '38678153-9f2a8d4533b12670e8b2dc2f4';
   const BASE_URL = 'https://pixabay.com/api/';
@@ -67,49 +84,29 @@ async function fetchPtotos() {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        per_page: 40,
+        per_page,
     };
 
-  let page = 1;
-  let query = null;
+  // let page = 1;
+  // let query = null;
 
   const params = new URLSearchParams({
     ...baseSearchParams,
-    q: query,
-    page: page,
+    q,
+    page,
 })
   const resultData = await axios.get(`${BASE_URL}?${params}`);
   console.log(resultData);
+  console.log(resultData.data.hits);
+  console.log(`${BASE_URL}?${params}`);
   return resultData;
 }
 
-//пошук фото після натискання кнопки
-// async function handleSubmit(event) {
-//     event.preventDefault();
-//   const searchQuery = document.querySelector('input').value.trim();
-//   console.log(searchQuery);
-
-//     if (!searchQuery) { return; }
-
-//     q = searchQuery;
-    
-//     try {
-//     const resultData = await fetchPtotos().then(
-//       resultData => {
-//             const photosArray = resultData.data.hits;
-//             console.log(photosArray);
-//             renderPhotoCard(photosArray);
-//         }
-//     );
-    
-//         } catch (error) {
-//         console.log(error.message);
-//     }
-// }
-
 //рендер розмітки одної картки
 function renderPhotoCard(data) {
-    const markup = data.map(photo => `<div class="photo-card">
+    const markup = data.map(photo => `
+    <a class="gallery-link" href="${photo.largeImageURL}">
+  <div class="photo-card">
   <img src=${photo.webformatURL} alt=${photo.tags} loading="lazy" />
   <div class="info">
     <p class="info-item">
@@ -125,8 +122,20 @@ function renderPhotoCard(data) {
       <b>Downloads: </b>${photo.downloads}
     </p>
   </div>
-</div>`)
+</div>
+</a>
+
+`)
     .join('');
-  photosContainerElem.innerHTML = markup;
+  
+photosContainerElem.insertAdjacentHTML('beforeend', markup);
+
+// const lightbox = new SimpleLightbox('.gallery a', {
+//     captionsData: 'alt',
+// })
+  
+//   lightbox.refresh();
 }
+
+//обернути картки в посилання
 
