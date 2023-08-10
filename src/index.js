@@ -42,7 +42,8 @@ async function handleLoad() {
 
 
 const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
+    // captionsData: 'alt',
+  captionsData: `Likes: ${photo.likes}`,
 })
   
   lightbox.refresh();
