@@ -42,12 +42,13 @@ async function handleLoad() {
 
 
 const lightbox = new SimpleLightbox('.gallery a', {
-    // captionsData: 'alt',
-  captionsData: `Likes: ${photo.likes}`,
+  captionsData: 'alt',
+  //captionsData: `Likes: ${photo.likes}`,
 })
   
   lightbox.refresh();
     
+    console.log(photo.likes);
     console.log(resultData.length);
     console.log(data.data.totalHits)
     console.log(page)
@@ -109,7 +110,7 @@ function renderPhotoCard(data) {
     const markup = data.map(photo => `
     <a class="gallery-link" href="${photo.largeImageURL}">
   <div class="photo-card">
-  <img src=${photo.webformatURL} alt=${photo.tags} loading="lazy" />
+  <img src="${photo.webformatURL}" alt="${photo.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
       <b>Likes: </b>${photo.likes}
