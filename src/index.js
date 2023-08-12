@@ -40,22 +40,22 @@ loadMoreButtonElem.addEventListener('click', () => {
 //функція завантаження - пошук і load more
 async function handleLoad() {
   try {
-    // photosContainerElem.innerHTML = '';
     loadMoreButtonElem.classList.add('is-hidden');
 
     const data = await fetchPtotos();
     const resultData = data.data.hits;
     renderPhotoCard(resultData);
 
-      const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
+    if (page > 1)
+    {const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
      window.scrollBy({
       top: cardHeight * 2,
       behavior: "smooth",
-    });
+    });}
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-})  
+    const lightbox = new SimpleLightbox('.gallery a', {
+      captionsData: 'alt',
+    })  
     lightbox.refresh();
     
     
