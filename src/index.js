@@ -8,10 +8,12 @@ const submitButtonElem = document.querySelector('button');
 const formElem = document.querySelector('.search-form');
 const loadMoreButtonElem = document.querySelector('.load-more');
 const endTextElem = document.querySelector('.end-text');
+const infoAmountElem = document.querySelector('.info-about-amount')
 
 //слухач на форму
 formElem.addEventListener('submit', (event) => {
   event.preventDefault();
+  photosContainerElem.innerHTML = '';
 
   page = 1;
   
@@ -32,7 +34,7 @@ loadMoreButtonElem.addEventListener('click', () => {
 //функція завантаження - пошук і load more
 async function handleLoad() {
   try {
-    photosContainerElem.innerHTML = '';
+    // photosContainerElem.innerHTML = '';
     loadMoreButtonElem.classList.add('is-hidden');
 
     const data = await fetchPtotos();
@@ -51,15 +53,19 @@ const lightbox = new SimpleLightbox('.gallery a', {
     console.log(data.data.totalHits)
     console.log(page)
     const totalPages = data.data.totalHits / per_page;
+    const amount = resultData.length * page;
 
     if (!resultData.length) {
       Notiflix.Notify.failure(
             'Sorry, there are no images matching your search query. Please try again.'
       );
     } else if (page < totalPages) {
-        loadMoreButtonElem.classList.remove('is-hidden');
+      loadMoreButtonElem.classList.remove('is-hidden');
+      infoAmountElem.classList.remove('is-hidden');
+      infoAmountElem.innerHTML = `${amount} of ${data.data.totalHits} results are shown`;
     } else {
       loadMoreButtonElem.classList.add('is-hidden');
+      infoAmountElem.classList.add('is-hidden');
       endTextElem.classList.remove('is-hidden');
       console.log(endTextElem)
     }
