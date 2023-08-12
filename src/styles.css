@@ -1,27 +1,27 @@
 :root {
-    --background-color: #FFFCF9;
-    --search-btn-color: #E93046;
-    --search-btn-hover-color: #D2243C;
-    --load-btn-gradient: linear-gradient(to bottom right, #FFA354, #E82B45);
-    --load-btn-hover-color: #E82B45;
+  --background-color: #fffcf9;
+  --search-btn-color: #e93046;
+  --search-btn-hover-color: #d2243c;
+  --load-btn-gradient: linear-gradient(to bottom right, #ffa354, #e82b45);
+  --load-btn-hover-color: #e82b45;
 }
 
 .is-hidden {
-    display: none;
+  display: none;
 }
 
 li.likes::marker {
-    content: "🖤";
+  content: '🖤';
 }
 
 li.views::marker {
-    content: "👀";
+  content: '👀';
 }
 
 li.comments::marker {
-    content: "💬";
+  content: '💬';
 }
 
 li.downloads::marker {
-    content: "☑️";
+  content: '☑️';
 }

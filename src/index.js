@@ -30,11 +30,11 @@ loadMoreButtonElem.addEventListener('click', () => {
   page += 1;
   handleLoad();
 
-  const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
-     window.scrollBy({
-      top: cardHeight * 2,
-      behavior: "smooth",
-    });
+  // const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
+  //    window.scrollBy({
+  //     top: cardHeight * 2,
+  //     behavior: "smooth",
+  //   });
 })
 
 //функція завантаження - пошук і load more
@@ -47,11 +47,17 @@ async function handleLoad() {
     const resultData = data.data.hits;
     renderPhotoCard(resultData);
 
+      const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
+     window.scrollBy({
+      top: cardHeight * 2,
+      behavior: "smooth",
+    });
+
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
-})
-  
-  lightbox.refresh();
+})  
+    lightbox.refresh();
+    
     
     console.log(resultData.length);
     console.log(data.data.totalHits)
