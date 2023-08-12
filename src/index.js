@@ -43,12 +43,10 @@ async function handleLoad() {
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
-  //captionsData: `Likes: ${photo.likes}`,
 })
   
   lightbox.refresh();
     
-    console.log(photo.likes);
     console.log(resultData.length);
     console.log(data.data.totalHits)
     console.log(page)
@@ -111,20 +109,20 @@ function renderPhotoCard(data) {
     <a class="gallery-link" href="${photo.largeImageURL}">
   <div class="photo-card">
   <img src="${photo.webformatURL}" alt="${photo.tags}" loading="lazy" />
-  <div class="info">
-    <p class="info-item">
+  <ul class="info">
+    <li class="info-item likes">
       <b>Likes: </b>${photo.likes}
-    </p>
-    <p class="info-item">
+    </li>
+    <li class="info-item views">
       <b>Views: </b>${photo.views}
-    </p>
-    <p class="info-item">
+    </li>
+    <li class="info-item comments">
       <b>Comments: </b>${photo.comments}
-    </p>
-    <p class="info-item">
+    </li>
+    <li class="info-item downloads">
       <b>Downloads: </b>${photo.downloads}
-    </p>
-  </div>
+    </li>
+  </ul>
 </div>
 </a>
 
@@ -132,13 +130,6 @@ function renderPhotoCard(data) {
     .join('');
   
 photosContainerElem.insertAdjacentHTML('beforeend', markup);
-
-// const lightbox = new SimpleLightbox('.gallery a', {
-//     captionsData: 'alt',
-// })
-  
-//   lightbox.refresh();
 }
 
-//обернути картки в посилання
 

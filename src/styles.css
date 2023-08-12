@@ -1,3 +1,27 @@
+:root {
+    --background-color: #FFFCF9;
+    --search-btn-color: #E93046;
+    --search-btn-hover-color: #D2243C;
+    --load-btn-gradient: linear-gradient(to bottom right, #FFA354, #E82B45);
+    --load-btn-hover-color: #E82B45;
+}
+
 .is-hidden {
     display: none;
+}
+
+li.likes::marker {
+    content: 🖤;
+}
+
+li.views::marker {
+    content: 👀;
+}
+
+li.comments::marker {
+    content: 💬;
+}
+
+li.downloads::marker {
+    content: ☑️;
 }
