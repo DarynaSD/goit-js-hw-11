@@ -1,15 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --background-color: #fffcf9;
   --search-btn-color: #e93046;
   --search-btn-hover-color: #d2243c;
   --load-btn-gradient: linear-gradient(to bottom right, #ffa354, #e82b45);
   --load-btn-hover-color: #e82b45;
+  --text-color: #311D28;
 }
 
 .is-hidden {
   display: none;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+
+  background-color: var(--background-color);
+}
+
+.form-wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0 10px 10px -10px rgba(46, 47, 66, 0.16);
+}
+
+.search-form {
+  text-align: center;
+}
+
+.gallery {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+
+/* li markers */
 li.likes::marker {
   content: '🖤';
 }
@@ -24,4 +61,52 @@ li.comments::marker {
 
 li.downloads::marker {
   content: '☑️';
+}
+
+/* CARD STYLES */
+.gallery-link {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.photo-card {
+  background-color: #ffffff;
+  padding: 10px 10px 15px 10px;
+  border-radius: 10px;
+}
+
+img {
+  display: block;
+  border-radius: 4px;
+  overflow: hidden;
+
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+
+
+/* MEDIA */
+@media screen and (min-width: 720px) {
+    .form-wrapper {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      }
+      
+    .gallery {
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .photo-card {
+      width: calc(100% / 2 - 30px);
+    }
+
+    }
+
+@media screen and (min-width: 1280px) {
+    .photo-card {
+        width: calc(100% / 3 - 30px);
+      }
 }

@@ -90,7 +90,7 @@ async function handleLoad() {
 //запит на сервер
 let q;
 let page = 1;
-let per_page = 40;
+let per_page = 39;
  
 async function fetchPtotos() {
   const API_KEY = '38678153-9f2a8d4533b12670e8b2dc2f4';
@@ -122,25 +122,27 @@ async function fetchPtotos() {
 //рендер розмітки одної картки
 function renderPhotoCard(data) {
     const markup = data.map(photo => `
-    <a class="gallery-link" href="${photo.largeImageURL}">
+
   <div class="photo-card">
+      <a class="gallery-link" href="${photo.largeImageURL}">
   <img src="${photo.webformatURL}" alt="${photo.tags}" loading="lazy" />
   <ul class="info">
     <li class="info-item likes">
-      <b>Likes: </b>${photo.likes}
+      <b>likes: </b>${photo.likes}
     </li>
     <li class="info-item views">
-      <b>Views: </b>${photo.views}
+      <b>views: </b>${photo.views}
     </li>
     <li class="info-item comments">
-      <b>Comments: </b>${photo.comments}
+      <b>comments: </b>${photo.comments}
     </li>
     <li class="info-item downloads">
-      <b>Downloads: </b>${photo.downloads}
+      <b>downloads: </b>${photo.downloads}
     </li>
   </ul>
+  </a>
 </div>
-</a>
+
 
 `)
     .join('');
