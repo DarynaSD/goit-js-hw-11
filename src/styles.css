@@ -11,17 +11,17 @@
 }
 
 li.likes::marker {
-    content: 🖤;
+    content: "🖤";
 }
 
 li.views::marker {
-    content: 👀;
+    content: "👀";
 }
 
 li.comments::marker {
-    content: 💬;
+    content: "💬";
 }
 
 li.downloads::marker {
-    content: ☑️;
+    content: "☑️";
 }
