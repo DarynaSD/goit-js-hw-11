@@ -29,6 +29,12 @@ formElem.addEventListener('submit', (event) => {
 loadMoreButtonElem.addEventListener('click', () => {
   page += 1;
   handleLoad();
+
+  const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
+     window.scrollBy({
+      top: cardHeight * 2,
+      behavior: "smooth",
+    });
 })
 
 //функція завантаження - пошук і load more
@@ -40,8 +46,6 @@ async function handleLoad() {
     const data = await fetchPtotos();
     const resultData = data.data.hits;
     renderPhotoCard(resultData);
-
-
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
