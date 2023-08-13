@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="form-wrapper">
+    <div class="form-wrapper" id="form-wrapper">
       <form class="search-form" id="search-form">
         <div class="input-wrapper">
           <input
-            autofocus
             required
             type="text"
             name="searchQuery"
@@ -38,9 +37,41 @@
     <div class="gallery">
       <!-- Картки зображень -->
     </div>
+
     <p class="info-about-amount is-hidden"></p>
-    <button type="button" class="load-more is-hidden">Load more</button>
+
+    <div class="button-wrapper">
+      <button type="button" class="load-more is-hidden">Load more</button>
+      <a
+        href="#"
+        class="chevron-up-link is-hidden"
+        id="up"
+        onclick="return up()"
+      >
+        <img
+          src="./chevron-up.svg"
+          alt="chevron-up-icon"
+          class="chevron-up-icon"
+        />
+      </a>
+    </div>
+
     <p class="end-text is-hidden">You've reached the end of search results.</p>
+
     <script src="index.js" type="module"></script>
+    <script>
+      let t;
+      function up() {
+        let top = Math.max(
+          document.body.scrollTop,
+          document.documentElement.scrollTop
+        );
+        if (top > 0) {
+          window.scrollBy(0, (top + 100) / -10);
+          t = setTimeout('up()', 20);
+        } else clearTimeout(t);
+        return false;
+      }
+    </script>
   </body>
 </html>

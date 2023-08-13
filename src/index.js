@@ -1,14 +1,15 @@
 import axios from "axios";
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import "simplelightbox/dist/simple-lightbox.min.css"; 
 
 const photosContainerElem = document.querySelector('.gallery');
 const submitButtonElem = document.querySelector('button');
 const formElem = document.querySelector('.search-form');
 const loadMoreButtonElem = document.querySelector('.load-more');
 const endTextElem = document.querySelector('.end-text');
-const infoAmountElem = document.querySelector('.info-about-amount')
+const infoAmountElem = document.querySelector('.info-about-amount');
+const upElem = document.querySelector('.chevron-up-link');
 
 //слухач на форму
 formElem.addEventListener('submit', (event) => {
@@ -36,6 +37,7 @@ async function handleLoad() {
   try {
     loadMoreButtonElem.classList.add('is-hidden');
     infoAmountElem.classList.add('is-hidden');
+    upElem.classList.add('is-hidden');
 
     const data = await fetchPtotos();
     const resultData = data.data.hits;
@@ -67,11 +69,13 @@ async function handleLoad() {
     } else if (page < totalPages) {
       loadMoreButtonElem.classList.remove('is-hidden');
       infoAmountElem.classList.remove('is-hidden');
+      upElem.classList.remove('is-hidden');
       infoAmountElem.innerHTML = `${amount} of ${data.data.totalHits} results are shown`;
     } else {
       loadMoreButtonElem.classList.add('is-hidden');
       infoAmountElem.classList.add('is-hidden');
       endTextElem.classList.remove('is-hidden');
+      upElem.classList.remove('is-hidden');
       console.log(endTextElem)
     }
   } catch (error) {
