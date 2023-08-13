@@ -29,6 +29,7 @@ body {
   background-color: var(--background-color);
 }
 
+/* FORM STYLES */
 .form-wrapper {
   width: 100%;
   padding-top: 10px;
@@ -39,6 +40,10 @@ body {
 .search-form {
   text-align: center;
 }
+
+/* .search-form > input {
+
+} */
 
 .gallery {
   padding: 0 10px 0 10px;
@@ -125,7 +130,7 @@ img {
 
 @media screen and (min-width: 1280px) {
     .photo-card {
-        width: calc((100% - 60px) / 3);
+        width: calc((100% - 90px) / 4);
       }
 }
 
@@ -140,6 +145,7 @@ img {
   
   border: none;
   border-radius: 30px;
+  box-shadow: 0px 2px 1px 0px rgba(46, 47, 66, 0.08), 0px 1px 1px 0px rgba(46, 47, 66, 0.16), 0px 1px 6px 0px rgba(46, 47, 66, 0.08);
   
   background-image: linear-gradient(to bottom right, #FFA354, #E82B45);
   background-color: #FFA354;
@@ -177,7 +183,7 @@ img {
   display: block;
   margin: 40px auto 25px;
   width: calc(100% - 2%);
-  height: 1px;
+  height: 0.5px;
   background-color: var(--search-btn-color);
 }
 

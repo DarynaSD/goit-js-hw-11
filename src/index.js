@@ -29,18 +29,13 @@ formElem.addEventListener('submit', (event) => {
 loadMoreButtonElem.addEventListener('click', () => {
   page += 1;
   handleLoad();
-
-  // const { height: cardHeight } = photosContainerElem.firstElementChild.getBoundingClientRect();
-  //    window.scrollBy({
-  //     top: cardHeight * 2,
-  //     behavior: "smooth",
-  //   });
 })
 
 //функція завантаження - пошук і load more
 async function handleLoad() {
   try {
     loadMoreButtonElem.classList.add('is-hidden');
+    infoAmountElem.classList.add('is-hidden');
 
     const data = await fetchPtotos();
     const resultData = data.data.hits;
@@ -90,7 +85,7 @@ async function handleLoad() {
 //запит на сервер
 let q;
 let page = 1;
-let per_page = 39;
+let per_page = 40;
  
 async function fetchPtotos() {
   const API_KEY = '38678153-9f2a8d4533b12670e8b2dc2f4';
